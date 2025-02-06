@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block content %}
+
+<!-- Header -->
+<header class="bg-dark py-5">
+  <div class="text-center text-white">
+    <h1 class="display-4 fw-bolder">Update Info</h1>
+    <p class="lead fw-normal text-white-50 mb-0">Update your Info</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card border-0 shadow rounded-3 my-5">
+        <div class="card-body p-4 p-sm-5">
+          <h5 class="card-title text-center mb-5 fw-light fs-5">Update Info</h5>
+          <form method="POST" action="{% url 'update_info' %}">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+            <br>
+            <br>
+            <button type="submit" class="btn btn-secondary">Update Info</button>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  {% endblock %}
+
