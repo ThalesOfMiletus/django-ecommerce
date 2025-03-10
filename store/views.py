@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 # Create your views here.
 
@@ -33,6 +34,17 @@ def home(request):
 def about(request):
     return render(request, 'about.html', {})
 
+def search(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        searched = Product.objects.filter(Q(name__icontains=searched) | Q(description__icontains=searched))
+        if not searched:
+            messages.error(request, "No products found")
+            return render(request, 'search.html', {})
+        else:
+            return render(request, 'search.html', {'searched': searched})
+    else:
+        return render(request, 'search.html', {})
 
 
 ### User views
